@@ -19,7 +19,7 @@
             android:id="@+id/hangmanImage"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:background="@mipmap/Hangman6"
+            android:background="@mipmap/hangman6"
             android:layout_gravity="center"
             android:layout_weight="0.1" />
 
@@ -79,10 +79,11 @@
 
         <EditText
             android:id="@+id/guessLetterInput"
+            android:hint="@string/guesshint"
+            android:textColorHint="#666666"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:text="Make your guess"
             android:layout_weight="2"
             android:layout_margin="10dp"
             android:layout_gravity="center_vertical" />
