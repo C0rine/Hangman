@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="attempts left: 10"
+                android:text="@string/attemptcount"
                 android:textColor="#ffffff"
                 android:layout_weight="0.25"
                 android:layout_gravity="left"
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="guessed letters: abcdefg"
+                android:text="@string/guessedLetters"
                 android:layout_margin="10dp"
                 android:layout_weight="0.25"
                 android:allowUndo="false"
@@ -97,7 +97,9 @@
             android:background="#000000"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:onClick="onSubmitGuess" />
     </LinearLayout>
 
     <Button
