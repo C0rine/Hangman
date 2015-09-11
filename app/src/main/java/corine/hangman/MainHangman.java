@@ -138,8 +138,24 @@ public class MainHangman extends AppCompatActivity {
     }
 
     // checks guessed letter and replaces relevant underscores to the letter
-    public void checkGuess(){
+    public void checkGuess(String letter){
 
+        guessingstatus = "";
+
+        char tocheck = letter.charAt(0);
+        char[] randomwordarray = randomword.toCharArray();
+
+        for (int i = 0; i < randomword.length(); i++){
+            if (randomwordarray[i] == tocheck){
+                randomwordmask[i] = tocheck;
+            }
+        }
+
+        for (Character c : randomwordmask){
+            guessingstatus += c.toString();
+        }
+
+        wordToGuess.setText(guessingstatus);
     }
 
     // handles all the events that need to happen when the user makes a guess
@@ -161,6 +177,9 @@ public class MainHangman extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
         else {
+            // check guess letter with the word and update that textview
+            checkGuess(guess);
+
             // keeps track of the letters that were guessed and displays them to the user
             guessed = guessed + guess;
             guessedLetters.setText(guessed);
