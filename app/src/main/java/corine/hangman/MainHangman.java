@@ -12,17 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class MainHangman extends AppCompatActivity {
 
     private ImageView hangmanImage;
     private TextView attemptCounter, wordToGuess, guessedLetters;
     private EditText guessLetterInput;
     private Button guessLetterSubmit, makeGuessWord;
+    private String[] words;
 
     Bundle bundle = new Bundle();
 
     public String guessed = "Letters guessed: \n";
     Integer attempts = 6;
+
+    // generate random number to retrieve string to guess
+    //private String[] words = new String[4];
+
+
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -37,7 +45,17 @@ public class MainHangman extends AppCompatActivity {
         guessLetterSubmit = (Button) findViewById(R.id.guessLetterSubmit);
         makeGuessWord = (Button) findViewById(R.id.makeGuessWord);
 
+        // load in a random word to guess
+        words = getResources().getStringArray(R.array.words);
+        int arraylength = words.length;
+        int random = (int)(Math.random() * arraylength);
+
+        // display the word to guess to the user
+        wordToGuess.setText(words[random]);
+
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle bundle){
