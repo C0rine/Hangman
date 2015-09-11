@@ -26,10 +26,7 @@ public class MainHangman extends AppCompatActivity {
 
     public String guessed = "Letters guessed: \n";
     Integer attempts = 6;
-
-    // generate random number to retrieve string to guess
-    //private String[] words = new String[4];
-
+    String randomword = "randomword here";
 
 
     @Override
@@ -49,12 +46,12 @@ public class MainHangman extends AppCompatActivity {
         words = getResources().getStringArray(R.array.words);
         int arraylength = words.length;
         int random = (int)(Math.random() * arraylength);
+        randomword = words[random];
 
         // display the word to guess to the user
-        wordToGuess.setText(words[random]);
+        wordToGuess.setText(randomword);
 
     }
-
 
 
     @Override
@@ -64,6 +61,7 @@ public class MainHangman extends AppCompatActivity {
         // create a bundle of information needed to retain status on orientation change
         bundle.putInt("attempts", attempts);
         bundle.putString("guessedletters", guessed);
+        bundle.putString("randomword", randomword);
 
     }
 
@@ -77,6 +75,9 @@ public class MainHangman extends AppCompatActivity {
 
         attempts = bundle.getInt("attempts");
         attemptCounter.setText("attempts left: " + String.valueOf(attempts));
+
+        randomword = bundle.getString("randomword");
+        wordToGuess.setText(randomword);
     }
 
     @Override
