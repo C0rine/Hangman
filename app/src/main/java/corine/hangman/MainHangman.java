@@ -3,6 +3,7 @@ package corine.hangman;
 import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,13 +21,16 @@ public class MainHangman extends AppCompatActivity {
     private TextView attemptCounter, wordToGuess, guessedLetters;
     private EditText guessLetterInput;
     private Button guessLetterSubmit, makeGuessWord;
-    private String[] words;
 
     Bundle bundle = new Bundle();
 
-    public String guessed = "Letters guessed: \n";
-    Integer attempts = 6;
-    String randomword = "randomword here";
+    private String[] words;
+    private String guessed = "Letters guessed: \n";
+    private Integer attempts = 6;
+    private String randomword = "randomword here";
+    private Character[] randomwordmask;
+    private Integer lengthrandomword;
+    private String guessingstatus = "";
 
 
     @Override
@@ -48,8 +52,20 @@ public class MainHangman extends AppCompatActivity {
         int random = (int)(Math.random() * arraylength);
         randomword = words[random];
 
-        // display the word to guess to the user
-        wordToGuess.setText(randomword);
+        // mask the string the user needs to guess with underscores
+        lengthrandomword = randomword.length();
+        randomwordmask = new Character[lengthrandomword];
+
+        for (int i = 0; i < lengthrandomword; i++){
+            randomwordmask[i] = '_';
+        }
+
+        for (Character c : randomwordmask){
+            guessingstatus += c.toString() + " ";
+        }
+
+        // display the current status of the word to guess to the user
+        wordToGuess.setText(guessingstatus);
 
     }
 
@@ -62,6 +78,7 @@ public class MainHangman extends AppCompatActivity {
         bundle.putInt("attempts", attempts);
         bundle.putString("guessedletters", guessed);
         bundle.putString("randomword", randomword);
+        bundle.putString("guessingstatus", guessingstatus);
 
     }
 
@@ -78,6 +95,9 @@ public class MainHangman extends AppCompatActivity {
 
         randomword = bundle.getString("randomword");
         wordToGuess.setText(randomword);
+
+        guessingstatus = bundle.getString("guessingstatus");
+        wordToGuess.setText(guessingstatus);
     }
 
     @Override
