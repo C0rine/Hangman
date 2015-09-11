@@ -158,6 +158,14 @@ public class MainHangman extends AppCompatActivity {
         wordToGuess.setText(guessingstatus);
     }
 
+    // user can guess the full word (unfortunately not enough time to fully implement)
+    public void makeGuessWord(View view) {
+
+        Toast.makeText(getApplicationContext(), "not yet implemented, not enough time... :( " +
+                "the word you tried to guess was " + "\"" + randomword + "\"", Toast.LENGTH_LONG).show();
+
+    }
+
     // handles all the events that need to happen when the user makes a guess
     public void onSubmitGuess(View view) {
 
@@ -211,6 +219,10 @@ public class MainHangman extends AppCompatActivity {
                     DialogFragment gameOver = new MyDialogFragment();
                     gameOver.show(getFragmentManager(), "theDialog");
 
+                    // show the word the user had to guess
+                    Toast.makeText(getApplicationContext(), "The word you tried to guess was "
+                            + "\"" + randomword + "\"", Toast.LENGTH_LONG).show();
+
                    // Prepare a new game
 
                     // get new random word
@@ -231,6 +243,7 @@ public class MainHangman extends AppCompatActivity {
                     // reset hangman image
                     hangmanImage.setImageResource(R.mipmap.hangman0);
 
+
                     break;
             }
         }
@@ -238,4 +251,5 @@ public class MainHangman extends AppCompatActivity {
 
 
     }
+
 }
