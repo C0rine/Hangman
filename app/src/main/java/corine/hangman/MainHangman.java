@@ -19,7 +19,7 @@ public class MainHangman extends AppCompatActivity {
 
     Bundle bundle = new Bundle();
 
-    String guessed = "Letters guessed: ";
+    String guessed = "Letters guessed: \n";
     Integer attempts = 6;
 
     @Override
@@ -95,6 +95,25 @@ public class MainHangman extends AppCompatActivity {
         // create a bundle of information needed to retain status on orientation change
         bundle.putInt("attempts", attempts);
         bundle.putString("guessedletters", guessed);
+
+        // change hangman image to appropriate amounts left
+        switch (attempts){
+            case 6: hangmanImage.setImageResource(R.mipmap.hangman0);
+                break;
+            case 5: hangmanImage.setImageResource(R.mipmap.hangman1);
+                break;
+            case 4: hangmanImage.setImageResource(R.mipmap.hangman2);
+                break;
+            case 3: hangmanImage.setImageResource(R.mipmap.hangman3);
+                break;
+            case 2: hangmanImage.setImageResource(R.mipmap.hangman4);
+                break;
+            case 1: hangmanImage.setImageResource(R.mipmap.hangman5);
+                break;
+            case 0: hangmanImage.setImageResource(R.mipmap.hangman6);
+                break;
+        }
+
 
     }
 }

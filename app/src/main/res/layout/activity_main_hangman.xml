@@ -19,7 +19,7 @@
             android:id="@+id/hangmanImage"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:background="@mipmap/hangman6"
+            android:src="@mipmap/hangman0"
             android:layout_gravity="center"
             android:layout_weight="0.1" />
 
