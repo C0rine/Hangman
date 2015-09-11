@@ -46,26 +46,10 @@ public class MainHangman extends AppCompatActivity {
         guessLetterSubmit = (Button) findViewById(R.id.guessLetterSubmit);
         makeGuessWord = (Button) findViewById(R.id.makeGuessWord);
 
-        // load in a random word to guess
-        words = getResources().getStringArray(R.array.words);
-        int arraylength = words.length;
-        int random = (int)(Math.random() * arraylength);
-        randomword = words[random];
-
-        // mask the string the user needs to guess with underscores
-        lengthrandomword = randomword.length();
-        randomwordmask = new Character[lengthrandomword];
-
-        for (int i = 0; i < lengthrandomword; i++){
-            randomwordmask[i] = '_';
-        }
-
-        for (Character c : randomwordmask){
-            guessingstatus += c.toString() + " ";
-        }
-
-        // display the current status of the word to guess to the user
-        wordToGuess.setText(guessingstatus);
+        // load in a random word to guess and set it to underscores
+        randomword = getRandomWord();
+        wordToGuess.setText(randomword);
+        resetGuessStatus();
 
     }
 
@@ -122,7 +106,45 @@ public class MainHangman extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Generates a random word for the user to guess
+    public String getRandomWord(){
+
+        words = getResources().getStringArray(R.array.words);
+        int arraylength = words.length;
+        int random = (int)(Math.random() * arraylength);
+        return words[random];
+
+    }
+
+    // Reset guessing status: set word to guess to all underscores
+    public void resetGuessStatus(){
+
+        guessingstatus = "";
+        lengthrandomword = randomword.length();
+        randomwordmask = new Character[lengthrandomword];
+
+        // make a char array of underscores
+        for (int i = 0; i < lengthrandomword; i++){
+            randomwordmask[i] = '_';
+        }
+
+        // convert char array to string
+        for (Character c : randomwordmask){
+            guessingstatus += c.toString();
+        }
+
+        wordToGuess.setText(guessingstatus);
+
+    }
+
+    // checks guessed letter and replaces relevant underscores to the letter
+    public void checkGuess(){
+
+    }
+
+    // handles all the events that need to happen when the user makes a guess
     public void onSubmitGuess(View view) {
+
         String guess = String.valueOf(guessLetterInput.getText());
 
         // making sure user input is appropriate
@@ -169,6 +191,27 @@ public class MainHangman extends AppCompatActivity {
                     // Game Over --> start message in Dialog box
                     DialogFragment gameOver = new MyDialogFragment();
                     gameOver.show(getFragmentManager(), "theDialog");
+
+                   // Prepare a new game
+
+                    // get new random word
+                    randomword = getRandomWord();
+                    wordToGuess.setText(randomword);
+
+                    // reset guess status
+                    resetGuessStatus();
+
+                    // reset attempt status
+                    attempts = 6;
+                    attemptCounter.setText("attempts left: " + String.valueOf(attempts));
+
+                    // reset guessed letters
+                    guessed = "Letters guessed: \n";
+                    guessedLetters.setText(guessed);
+
+                    // reset hangman image
+                    hangmanImage.setImageResource(R.mipmap.hangman0);
+
                     break;
             }
         }

@@ -26,8 +26,7 @@ public class MyDialogFragment extends DialogFragment {
         theDialog.setPositiveButton("New Game", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getActivity(), "Clicked New Game \n (but this function does not work)",
-                        Toast.LENGTH_SHORT).show();
+
             }
         });
 
