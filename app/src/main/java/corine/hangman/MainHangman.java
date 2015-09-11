@@ -1,5 +1,6 @@
 package corine.hangman;
 
+import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,7 +21,7 @@ public class MainHangman extends AppCompatActivity {
 
     Bundle bundle = new Bundle();
 
-    String guessed = "Letters guessed: \n";
+    public String guessed = "Letters guessed: \n";
     Integer attempts = 6;
 
     @Override
@@ -111,7 +112,7 @@ public class MainHangman extends AppCompatActivity {
             bundle.putInt("attempts", attempts);
             bundle.putString("guessedletters", guessed);
 
-            // change hangman image to appropriate amounts left
+            // change hangman image to appropriate guess attempts left
             switch (attempts){
                 case 6: hangmanImage.setImageResource(R.mipmap.hangman0);
                     break;
@@ -126,6 +127,9 @@ public class MainHangman extends AppCompatActivity {
                 case 1: hangmanImage.setImageResource(R.mipmap.hangman5);
                     break;
                 case 0: hangmanImage.setImageResource(R.mipmap.hangman6);
+                    // Game Over --> start message in Dialog box
+                    DialogFragment gameOver = new MyDialogFragment();
+                    gameOver.show(getFragmentManager(), "theDialog");
                     break;
             }
         }
