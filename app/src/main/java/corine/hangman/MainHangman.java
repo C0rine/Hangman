@@ -17,12 +17,14 @@ public class MainHangman extends AppCompatActivity {
     private EditText guessLetterInput;
     private Button guessLetterSubmit, makeGuessWord;
 
+    Bundle bundle = new Bundle();
+
     String guessed = "Letters guessed: ";
     Integer attempts = 6;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_main_hangman);
 
         hangmanImage = (ImageView) findViewById(R.id.hangmanImage);
@@ -33,8 +35,28 @@ public class MainHangman extends AppCompatActivity {
         guessLetterSubmit = (Button) findViewById(R.id.guessLetterSubmit);
         makeGuessWord = (Button) findViewById(R.id.makeGuessWord);
 
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
 
+        // create a bundle of information needed to retain status on orientation change
+        bundle.putInt("attempts", attempts);
+        bundle.putString("guessedletters", guessed);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle bundle) {
+        super.onRestoreInstanceState(bundle);
+
+        // retrieve information from bundle to rebuild status on orientation change
+        guessed = bundle.getString("guessedletters");
+        guessedLetters.setText(guessed);
+
+        attempts = bundle.getInt("attempts");
+        attemptCounter.setText("attempts left: " + String.valueOf(attempts));
     }
 
     @Override
@@ -69,6 +91,10 @@ public class MainHangman extends AppCompatActivity {
         // keeps track of the attempts made by the users and displays this
         attempts = attempts - 1;
         attemptCounter.setText("attempts left: " + String.valueOf(attempts));
+
+        // create a bundle of information needed to retain status on orientation change
+        bundle.putInt("attempts", attempts);
+        bundle.putString("guessedletters", guessed);
 
     }
 }
