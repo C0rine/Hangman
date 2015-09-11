@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainHangman extends AppCompatActivity {
 
@@ -84,35 +85,51 @@ public class MainHangman extends AppCompatActivity {
     public void onSubmitGuess(View view) {
         String guess = String.valueOf(guessLetterInput.getText());
 
-        // keeps track of the letters that were guessed and displays them to the user
-        guessed = guessed + guess;
-        guessedLetters.setText(guessed);
-
-        // keeps track of the attempts made by the users and displays this
-        attempts = attempts - 1;
-        attemptCounter.setText("attempts left: " + String.valueOf(attempts));
-
-        // create a bundle of information needed to retain status on orientation change
-        bundle.putInt("attempts", attempts);
-        bundle.putString("guessedletters", guessed);
-
-        // change hangman image to appropriate amounts left
-        switch (attempts){
-            case 6: hangmanImage.setImageResource(R.mipmap.hangman0);
-                break;
-            case 5: hangmanImage.setImageResource(R.mipmap.hangman1);
-                break;
-            case 4: hangmanImage.setImageResource(R.mipmap.hangman2);
-                break;
-            case 3: hangmanImage.setImageResource(R.mipmap.hangman3);
-                break;
-            case 2: hangmanImage.setImageResource(R.mipmap.hangman4);
-                break;
-            case 1: hangmanImage.setImageResource(R.mipmap.hangman5);
-                break;
-            case 0: hangmanImage.setImageResource(R.mipmap.hangman6);
-                break;
+        // making sure user input is appropriate
+        if (guess.length() < 0){
+            Toast.makeText(getApplicationContext(), "You have not provided input!",
+                    Toast.LENGTH_SHORT).show();
         }
+        else if (guess.length() > 1){
+           Toast.makeText(getApplicationContext(), "You can only guess one character at a time",
+                   Toast.LENGTH_SHORT).show();
+        }
+        else if (!Character.isLetter(guess.charAt(0))){
+            Toast.makeText(getApplicationContext(), "You can only guess letters",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            // keeps track of the letters that were guessed and displays them to the user
+            guessed = guessed + guess;
+            guessedLetters.setText(guessed);
+
+            // keeps track of the attempts made by the users and displays this
+            attempts = attempts - 1;
+            attemptCounter.setText("attempts left: " + String.valueOf(attempts));
+
+            // create a bundle of information needed to retain status on orientation change
+            bundle.putInt("attempts", attempts);
+            bundle.putString("guessedletters", guessed);
+
+            // change hangman image to appropriate amounts left
+            switch (attempts){
+                case 6: hangmanImage.setImageResource(R.mipmap.hangman0);
+                    break;
+                case 5: hangmanImage.setImageResource(R.mipmap.hangman1);
+                    break;
+                case 4: hangmanImage.setImageResource(R.mipmap.hangman2);
+                    break;
+                case 3: hangmanImage.setImageResource(R.mipmap.hangman3);
+                    break;
+                case 2: hangmanImage.setImageResource(R.mipmap.hangman4);
+                    break;
+                case 1: hangmanImage.setImageResource(R.mipmap.hangman5);
+                    break;
+                case 0: hangmanImage.setImageResource(R.mipmap.hangman6);
+                    break;
+            }
+        }
+
 
 
     }
